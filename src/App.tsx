@@ -81,6 +81,7 @@ const Layout = () => {
         open={mobileOpen}
         onClose={handleDrawerToggle}
         ModalProps={{ keepMounted: true }}
+        sx={{ ".MuiPaper-root": { minWidth: "200px" } }}
       >
         <List>
           {menuItems.map((item) => (
