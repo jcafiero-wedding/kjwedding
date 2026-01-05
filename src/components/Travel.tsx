@@ -7,6 +7,8 @@ import {
   List,
   ListItem,
   ListItemText,
+  Button,
+  Modal,
 } from "@mui/material";
 import {
   Hotel,
@@ -15,8 +17,24 @@ import {
   Language,
   Phone,
 } from "@mui/icons-material";
+import { useState } from "react";
+
+const modalStyle = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: { xs: "90%", sm: 600 },
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: { xs: 2, sm: 4 },
+};
 
 function Travel() {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleModal = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <div className="page-content">
       <Typography variant="h1" gutterBottom>
@@ -60,6 +78,9 @@ function Travel() {
                   primary="The SeaShell Resort"
                   secondary="Our wedding venue - book here for convenience"
                 />
+                <Button variant="contained" onClick={handleModal}>
+                  Hotel Block Information
+                </Button>
                 <Box sx={{ display: "flex", gap: 2, mt: 1 }}>
                   <Link
                     href="https://theseashellresort.com"
@@ -197,19 +218,36 @@ function Travel() {
               <ListItem>
                 <ListItemText
                   primary="The Chicken or the Egg"
-                  secondary="Famous breakfast spot"
+                  secondary="Famous chicken wing and breakfast spot"
                 />
+                {/* https://www.letschegg.com/ */}
               </ListItem>
               <ListItem>
                 <ListItemText
-                  primary="Scojo's"
-                  secondary="Casual dining with ocean views"
+                  primary="California Grill & Pizza"
+                  secondary="Casual dining with award-winning chowder"
                 />
+                {/* https://www.californiagrilllbi.com/ */}
               </ListItem>
               <ListItem>
                 <ListItemText
                   primary="Black Whale Bar & Fish House"
                   secondary="Upscale seafood dining"
+                />
+                {/* https://www.blackwhalebar.com/ */}
+              </ListItem>
+              <ListItem>
+                <ListItemText
+                  primary="Barry's Do Me A Flavor"
+                  secondary="Local ice cream shop"
+                />
+                {/* https://barrysdomeaflavor.com/ */}
+              </ListItem>
+
+              <ListItem>
+                <ListItemText
+                  primary="Ship Bottom Brewery"
+                  secondary="Local brewery in Bay Village, has non-beer options including hard seltzers and slushes on tap"
                 />
               </ListItem>
             </List>
@@ -243,20 +281,43 @@ function Travel() {
               </ListItem>
               <ListItem>
                 <ListItemText
-                  primary="Boardwalk Stroll"
-                  secondary="Shopping and entertainment"
-                />
-              </ListItem>
-              <ListItem>
-                <ListItemText
-                  primary="Fishing Charters"
-                  secondary="Deep sea and bay fishing"
+                  primary="Bay Village/Schooners Wharf"
+                  secondary="Shopping plaza with a beautiful Christmas tree shop"
                 />
               </ListItem>
             </List>
           </Paper>
         </Grid>
       </Grid>
+      <Modal open={isOpen} onClose={handleModal}>
+        <Box sx={modalStyle}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Important Information on How to Book a Reservation:
+          </Typography>
+          <ul>
+            <li>
+              The resort is closed until April, but they will be open starting
+              Monday, January 13th to accept reservations.
+            </li>
+            <li>
+              Guests can call the resort at 609-492-4611 ext 1 anytime Monday -
+              Saturday 12pm-5pm after January 13th.
+            </li>
+            <li>
+              Guests cannot use the online booking portal to secure a room
+              within your room block.
+            </li>
+            <li>
+              If guests call the resort and do not connect with a receptionist,
+              they should leave a voicemail for a call back.
+            </li>
+            <li>
+              Once the resort reopens at the end of April, the resort will
+              resume normal business hours.
+            </li>
+          </ul>
+        </Box>
+      </Modal>
     </div>
   );
 }
