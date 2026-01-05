@@ -62,7 +62,7 @@ function Travel() {
                 />
                 <Box sx={{ display: "flex", gap: 2, mt: 1 }}>
                   <Link
-                    href="https://seashellresort.com"
+                    href="https://theseashellresort.com"
                     target="_blank"
                     sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
                   >
