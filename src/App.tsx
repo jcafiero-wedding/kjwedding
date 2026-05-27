@@ -11,6 +11,7 @@ import Details from "./components/Details";
 import Travel from "./components/Travel";
 import QA from "./components/QA";
 import Gallery from "./components/Gallery";
+import RSVP from "./components/RSVP";
 import {
   Button,
   createTheme,
@@ -40,6 +41,13 @@ const Layout = () => {
     { text: "Home", path: "/" },
     { text: "Details", path: "/details" },
     { text: "Travel", path: "/travel" },
+    { text: "RSVP", path: "/rsvp" },
+    {
+      text: "Registry",
+      href: "https://registry.theknot.com/jennifer-cafiero-kyle-richers-september-2026-new-jersey/75296227",
+      external: true,
+      rel: "noopener noreferrer",
+    },
     // { text: "Q & A", path: "/qa" },
     // { text: "Gallery", path: "/gallery" },
   ];
@@ -66,6 +74,18 @@ const Layout = () => {
             <Button variant="text" component={Link} to="/travel">
               Travel
             </Button>
+            <Button variant="text" component={Link} to="/rsvp">
+              RSVP
+            </Button>
+            <Button
+              variant="text"
+              component="a"
+              href="https://registry.theknot.com/jennifer-cafiero-kyle-richers-september-2026-new-jersey/75296227"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Registry
+            </Button>
             {/* <Button variant="text" component={Link} to="/qa">
               Q & A
             </Button>
@@ -87,8 +107,14 @@ const Layout = () => {
           {menuItems.map((item) => (
             <ListItem key={item.text} disablePadding>
               <ListItemButton
-                component={Link}
-                to={item.path}
+                {...(item.external
+                  ? {
+                      component: "a",
+                      href: item.href,
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                    }
+                  : { component: Link, to: item.path })}
                 onClick={handleDrawerToggle}
               >
                 <ListItemText primary={item.text} />
@@ -141,6 +167,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="details" element={<Details />} />
             <Route path="travel" element={<Travel />} />
+            <Route path="rsvp" element={<RSVP />} />
             <Route path="qa" element={<QA />} />
             <Route path="gallery" element={<Gallery />} />
           </Route>
