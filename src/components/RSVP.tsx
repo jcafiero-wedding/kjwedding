@@ -42,32 +42,39 @@ function RSVP() {
   const [inputName, setInputName] = useState("");
   const [selectedGuest, setSelectedGuest] = useState<GuestParty | null>(null);
   const [filteredGuests, setFilteredGuests] = useState<GuestParty[]>([]);
+  const [autocompleteOpen, setAutocompleteOpen] = useState(false);
   const [nameError, setNameError] = useState("");
   const [guestParty, setGuestParty] = useState<GuestParty | null>(null);
   const [rsvpData, setRsvpData] = useState<{ [key: string]: "Yes" | "No" }>({});
   const [dietaryData, setDietaryData] = useState<{ [key: string]: string }>({});
+  const [guestNames, setGuestNames] = useState<{ [key: string]: string }>({});
   const [submitted, setSubmitted] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
   const [hasAlreadyRSVPd, setHasAlreadyRSVPd] = useState(false);
   const [previousResponse, setPreviousResponse] =
     useState<LatestResponse | null>(null);
 
-  // Filter guests as user types (after 3+ characters)
+  // Filter guests as user types (after 2+ characters)
   const handleNameInputChange = (value: string) => {
     setInputName(value);
     setSelectedGuest(null);
+    setNameError(""); // Clear any existing errors
 
-    if (value.length >= 3) {
-      const filtered = invitedGuests.filter(
-        (party) =>
-          party.primaryName.toLowerCase().includes(value.toLowerCase()) ||
-          party.guestNames.some((name) =>
-            name.toLowerCase().includes(value.toLowerCase())
-          )
-      );
+    if (value.length >= 2) {
+      const filtered = invitedGuests.filter((party) => {
+        const primaryMatch = party.primaryName
+          .toLowerCase()
+          .includes(value.toLowerCase());
+        const guestMatch = party.guestNames.some((name) =>
+          name.toLowerCase().includes(value.toLowerCase())
+        );
+        return primaryMatch || guestMatch;
+      });
       setFilteredGuests(filtered);
+      setAutocompleteOpen(filtered.length > 0);
     } else {
       setFilteredGuests([]);
+      setAutocompleteOpen(false);
     }
   };
 
@@ -77,6 +84,7 @@ function RSVP() {
     if (guest) {
       setInputName(guest.primaryName);
       setFilteredGuests([]);
+      setAutocompleteOpen(false);
     }
   };
 
@@ -87,10 +95,6 @@ function RSVP() {
       const SHEET_ID = import.meta.env.VITE_GOOGLE_SHEET_ID;
       const API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
 
-      console.log("Checking RSVP for:", primaryName);
-      console.log("Sheet ID:", SHEET_ID);
-      console.log("API Key exists:", !!API_KEY);
-
       if (!SHEET_ID || !API_KEY) {
         console.warn("Google Sheets credentials not configured");
         return { exists: false };
@@ -98,11 +102,8 @@ function RSVP() {
 
       // Get all columns to access timestamps and full response data
       const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Form Responses 1!A:Z?key=${API_KEY}`;
-      console.log("Request URL:", url);
 
       const response = await fetch(url);
-      console.log("Response status:", response.status);
-      console.log("Response ok:", response.ok);
 
       if (!response.ok) {
         const errorText = await response.text();
@@ -110,7 +111,6 @@ function RSVP() {
 
         // Try alternative sheet name if Form Responses 1 doesn't work
         if (errorText.includes("Unable to parse range")) {
-          console.log("Trying alternative sheet name: Form responses 1");
           const altUrl = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Form responses 1!A:Z?key=${API_KEY}`;
           const altResponse = await fetch(altUrl);
 
@@ -120,7 +120,6 @@ function RSVP() {
           }
         }
 
-        console.error("Failed to check existing RSVPs:", response.status);
         return { exists: false };
       }
 
@@ -136,7 +135,6 @@ function RSVP() {
     data: { values?: string[][] },
     primaryName: string
   ): RSVPCheckResult => {
-    console.log("API Response data:", data);
     const rows = data.values || [];
 
     if (rows.length === 0) {
@@ -153,8 +151,6 @@ function RSVP() {
       );
     });
 
-    console.log("Matching rows:", matchingRows);
-
     if (matchingRows.length === 0) {
       return { exists: false };
     }
@@ -169,7 +165,6 @@ function RSVP() {
     );
 
     const latestResponse = sortedRows[0];
-    console.log("Latest response:", latestResponse);
 
     return {
       exists: true,
@@ -211,10 +206,28 @@ function RSVP() {
 
       const initialRsvp: { [key: string]: "Yes" | "No" } = {};
       const initialDietary: { [key: string]: string } = {};
+      const initialGuestNames: { [key: string]: string } = {};
 
       party.guestNames.forEach((name) => {
-        initialRsvp[name] = attendingList.includes(name) ? "Yes" : "No";
+        // Check if this guest was attending (handle Guest (Name) format)
+        const wasAttending = attendingList.some((attendingGuest) => {
+          if (name === "Guest") {
+            // Check for "Guest (Actual Name)" format
+            const guestMatch = attendingGuest.match(/^Guest \((.+)\)$/);
+            if (guestMatch) {
+              initialGuestNames[name] = guestMatch[1];
+              return true;
+            }
+            return attendingGuest === name;
+          }
+          return attendingGuest === name;
+        });
+
+        initialRsvp[name] = wasAttending ? "Yes" : "No";
         initialDietary[name] = "";
+        if (!initialGuestNames[name]) {
+          initialGuestNames[name] = "";
+        }
       });
 
       // Parse dietary restrictions
@@ -230,16 +243,20 @@ function RSVP() {
 
       setRsvpData(initialRsvp);
       setDietaryData(initialDietary);
+      setGuestNames(initialGuestNames);
     } else {
       // Initialize with default values for new RSVP
       const initialRsvp: { [key: string]: "Yes" | "No" } = {};
       const initialDietary: { [key: string]: string } = {};
+      const initialGuestNames: { [key: string]: string } = {};
       party.guestNames.forEach((name) => {
         initialRsvp[name] = "No";
         initialDietary[name] = "";
+        initialGuestNames[name] = "";
       });
       setRsvpData(initialRsvp);
       setDietaryData(initialDietary);
+      setGuestNames(initialGuestNames);
     }
 
     setNameError("");
@@ -263,21 +280,47 @@ function RSVP() {
     }));
   };
 
+  const handleGuestNameChange = (originalName: string, actualName: string) => {
+    setGuestNames((prev) => ({
+      ...prev,
+      [originalName]: actualName,
+    }));
+  };
+
   const handleSubmit = async () => {
     if (!guestParty) return;
 
-    const attendingGuests = Object.entries(rsvpData)
-      .filter(([_, attending]) => attending === "Yes")
-      .map(([name, _]) => name);
+    // Validate that all attending "Guest" entries have names filled out
+    const attendingGuests = Object.entries(rsvpData).filter(
+      ([_, attending]) => attending === "Yes"
+    );
+    
+    const missingGuestNames = attendingGuests.filter(
+      ([name, _]) => name === "Guest" && !guestNames[name]?.trim()
+    );
+
+    if (missingGuestNames.length > 0) {
+      alert("Please enter the full name for all attending guests.");
+      return;
+    }
+
+    const attendingGuestsList = attendingGuests.map(([name, _]) => {
+      if (name === "Guest" && guestNames[name]?.trim()) {
+        return `Guest (${guestNames[name].trim()})`;
+      }
+      return name;
+    });
 
     const notAttendingGuests = Object.entries(rsvpData)
       .filter(([_, attending]) => attending === "No")
       .map(([name, _]) => name);
 
     // Create dietary restrictions summary for attending guests
-    const attendingDietary = attendingGuests
+    const attendingDietary = attendingGuestsList
       .map((name) => {
-        const dietary = dietaryData[name]?.trim();
+        // For Guest (Name) format, use the original "Guest" key for dietary lookup
+        const lookupName = name.startsWith("Guest (") ? "Guest" : name;
+        const dietary = dietaryData[lookupName]?.trim();
         return dietary ? `${name}: ${dietary}` : null;
       })
       .filter(Boolean)
@@ -290,11 +333,11 @@ function RSVP() {
 
     // Google Form field IDs from your form
     formDataToSubmit.append("entry.2016896556", guestParty.primaryName); // Primary Name
-    formDataToSubmit.append("entry.1162753304", attendingGuests.join(", ")); // Attending Guests
+    formDataToSubmit.append("entry.1162753304", attendingGuestsList.join(", ")); // Attending Guests
     formDataToSubmit.append("entry.898086083", notAttendingGuests.join(", ")); // Not Attending
     formDataToSubmit.append(
       "entry.1586449974",
-      attendingGuests.length.toString()
+      attendingGuestsList.length.toString()
     ); // Total Attending
     formDataToSubmit.append("entry.1602854707", attendingDietary); // Dietary Restrictions
 
@@ -369,6 +412,9 @@ function RSVP() {
             onChange={(_, value) =>
               handleGuestSelection(value as GuestParty | null)
             }
+            open={autocompleteOpen}
+            onOpen={() => setAutocompleteOpen(true)}
+            onClose={() => setAutocompleteOpen(false)}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -376,7 +422,7 @@ function RSVP() {
                 label="Full Name"
                 error={!!nameError}
                 helperText={
-                  nameError || "Type at least 3 characters to see suggestions"
+                  nameError || "Type at least 2 characters to see suggestions"
                 }
                 onKeyPress={(e) => e.key === "Enter" && validateAndProceed()}
               />
@@ -444,16 +490,32 @@ function RSVP() {
                 </FormControl>
 
                 {rsvpData[guestName] === "Yes" && (
-                  <TextField
-                    fullWidth
-                    label="Dietary restrictions or allergies"
-                    placeholder="e.g., vegetarian, gluten-free, nut allergy"
-                    value={dietaryData[guestName] || ""}
-                    onChange={(e) =>
-                      handleDietaryChange(guestName, e.target.value)
-                    }
-                    size="small"
-                  />
+                  <>
+                    {guestName === "Guest" && (
+                      <TextField
+                        fullWidth
+                        label="Guest's full name"
+                        placeholder="Enter guest's full name"
+                        value={guestNames[guestName] || ""}
+                        onChange={(e) =>
+                          handleGuestNameChange(guestName, e.target.value)
+                        }
+                        size="small"
+                        sx={{ mb: 2 }}
+                        required
+                      />
+                    )}
+                    <TextField
+                      fullWidth
+                      label="Dietary restrictions or allergies"
+                      placeholder="e.g., vegetarian, gluten-free, nut allergy"
+                      value={dietaryData[guestName] || ""}
+                      onChange={(e) =>
+                        handleDietaryChange(guestName, e.target.value)
+                      }
+                      size="small"
+                    />
+                  </>
                 )}
               </CardContent>
             </Card>

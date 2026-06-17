@@ -5,31 +5,6 @@ export interface GuestParty {
 }
 
 export const invitedGuests: GuestParty[] = [
-  {
-    primaryName: "John Smith",
-    guestNames: ["John Smith", "Jane Smith"],
-    totalAllowed: 2,
-  },
-  {
-    primaryName: "Michael Johnson",
-    guestNames: ["Michael Johnson"],
-    totalAllowed: 1,
-  },
-  {
-    primaryName: "Sarah Wilson",
-    guestNames: ["Sarah Wilson", "David Wilson", "Emma Wilson"],
-    totalAllowed: 3,
-  },
-  {
-    primaryName: "John Smith Jr",
-    guestNames: ["John Smith Jr", "Mary Smith"],
-    totalAllowed: 2,
-  },
-  {
-    primaryName: "Sarah Johnson",
-    guestNames: ["Sarah Johnson"],
-    totalAllowed: 1,
-  },
   // Add your actual guest list here
   // Example formats:
   // Single guest: { primaryName: "Guest Name", guestNames: ["Guest Name"], totalAllowed: 1 }
@@ -75,8 +50,8 @@ export const invitedGuests: GuestParty[] = [
     guestNames: [
       "Jeff Sorrentino",
       "Katie Sorrentino",
-      "Mackenzie Sorrentino", // TODO Check?
-      "Sydney Sorrentino", // TODO Check?
+      "Mackenzie Sorrentino",
+      "Sydney Sorrentino",
     ],
     totalAllowed: 4,
   },
@@ -125,8 +100,8 @@ export const invitedGuests: GuestParty[] = [
     totalAllowed: 1,
   },
   {
-    primaryName: "Alyssa Cafiero and Guest",
-    guestNames: ["Alyssa Cafiero", "Guest"],
+    primaryName: "Alyssa Cafiero and Troy Kopec",
+    guestNames: ["Alyssa Cafiero", "Troy Kopec"],
     totalAllowed: 2,
   },
   {
@@ -176,7 +151,7 @@ export const invitedGuests: GuestParty[] = [
   },
   {
     primaryName: "Julia Panko and Guest",
-    guestNames: ["Julia Panko", "Guest"],
+    guestNames: ["Julia Panko", "Daniel"],
     totalAllowed: 2,
   },
   {
@@ -211,7 +186,7 @@ export const invitedGuests: GuestParty[] = [
   },
   {
     primaryName: "Jen Searing and Guest",
-    guestNames: ["Jen Searing", "Guest"],
+    guestNames: ["Jen Searing", "Peter Demkowicz"],
     totalAllowed: 2,
   },
   {
@@ -221,7 +196,7 @@ export const invitedGuests: GuestParty[] = [
   },
   {
     primaryName: "Frankie Guarini",
-    guestNames: ["Frankie Guarini", "Elaine"], // TODO
+    guestNames: ["Frankie Guarini", "Elaine Nghiem"],
     totalAllowed: 2,
   },
   {
@@ -336,12 +311,12 @@ export const invitedGuests: GuestParty[] = [
   },
   {
     primaryName: "Mr. and Mrs. Austin Amoroso",
-    guestNames: ["Austin Amoroso", "Mrs. Austin Amoroso"], // TODO
+    guestNames: ["Austin Amoroso", "Kristen Amoroso"],
     totalAllowed: 2,
   },
   {
     primaryName: "Mr. and Mrs. Adam Amoroso",
-    guestNames: ["Adam Amoroso", "Mrs. Adam Amoroso"], // TODO
+    guestNames: ["Adam Amoroso", "Abby Amoroso"],
     totalAllowed: 2,
   },
   {
@@ -351,7 +326,7 @@ export const invitedGuests: GuestParty[] = [
   },
   {
     primaryName: "Mr. and Mrs. John Richers and Eduardo Leff Godden",
-    guestNames: ["John Richers", "Valerie Richers", "Eduardo Leff Godden"], // TODO did valerie take the Richers name
+    guestNames: ["John Richers", "Valerie Richers", "Eduardo Leff Godden"],
     totalAllowed: 3,
   },
   {
@@ -515,18 +490,18 @@ export const invitedGuests: GuestParty[] = [
     totalAllowed: 1,
   },
   {
-    primaryName: "Mr. & Mrs. F. Lewis",
-    guestNames: ["F. Lewis", "Mrs. F. Lewis"], //TODO
+    primaryName: "Mr. & Mrs. Francis Lewis",
+    guestNames: ["Francis Lewis", "Mary Lewis"],
     totalAllowed: 2,
   },
   {
     primaryName: "Mr. & Mrs. John Lewis",
-    guestNames: ["John Lewis", "Mrs. John Lewis"], //TODO
+    guestNames: ["John Lewis", "Marguerite Lewis"],
     totalAllowed: 2,
   },
   {
     primaryName: "Mr. & Mrs. Peter Lewis",
-    guestNames: ["Peter Lewis", "Mrs. Peter Lewis"], //TODO
+    guestNames: ["Peter Lewis", "Wendy Lewis"],
     totalAllowed: 2,
   },
   {
@@ -556,7 +531,7 @@ export const invitedGuests: GuestParty[] = [
   },
   {
     primaryName: "Mr. & Mrs. Glen Straffi",
-    guestNames: ["Glen Straffi", "Mrs. Glen Straffi"], //TODO
+    guestNames: ["Glen Straffi", "Gina Straffi"],
     totalAllowed: 2,
   },
   {
@@ -566,17 +541,17 @@ export const invitedGuests: GuestParty[] = [
   },
   {
     primaryName: "Mr. & Mrs. Don Ferrer",
-    guestNames: ["Don Ferrer", "Mrs. Don Ferrer"], //TODO
+    guestNames: ["Don Ferrer", "Jacqui Ferrer"],
     totalAllowed: 2,
   },
   {
     primaryName: "Mr. & Mrs. Russell Calkin",
-    guestNames: ["Russell Calkin", "Mrs. Russell Calkin"], //TODO
+    guestNames: ["Russell Calkin", "Judy Calkin"],
     totalAllowed: 2,
   },
   {
     primaryName: "Mr. & Mrs. Terence McSweeney",
-    guestNames: ["Terence McSweeney", "Mrs. Terence McSweeney"], //TODO
+    guestNames: ["Terence McSweeney", "Andrea McSweeney"],
     totalAllowed: 2,
   },
   {
