@@ -460,8 +460,8 @@ export const invitedGuests: GuestParty[] = [
     totalAllowed: 2,
   },
   {
-    primaryName: "Jaimie Marchini",
-    guestNames: ["Jaimie Marchini", "Guest"],
+    primaryName: "Jamie Marchini",
+    guestNames: ["Jamie Marchini", "Guest"],
     totalAllowed: 2,
   },
   {
@@ -496,7 +496,7 @@ export const invitedGuests: GuestParty[] = [
   },
   {
     primaryName: "Mr. & Mrs. John Lewis",
-    guestNames: ["John Lewis", "Marguerite Lewis"],
+    guestNames: ["John Lewis", "Annette Lewis"],
     totalAllowed: 2,
   },
   {
