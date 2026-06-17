@@ -43,13 +43,57 @@
 
 .hero {
   height: 100vh;
-  background-image: url("assets/hector-achautla-4a7qp3R9AHc-unsplash.jpg");
+  background-image: url("assets/Richers-1069.jpg");
   background-size: cover;
   background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+}
+
+/* Mobile-specific adjustments for landscape image */
+@media (max-width: 768px) {
+  .hero {
+    background-position: 70% center; /* Shift right to include both people */
+    min-height: 100vh;
+  }
+
+  .hero-content {
+    top: 100px;
+    padding: 0 1rem;
+    text-align: center;
+  }
+
+  .hero-content h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+  }
+
+  .hero-content p {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    background-position: 70% center; /* Fine-tune for very narrow screens */
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+}
+
+/* Alternative: Use object-fit if we need more control */
+@media (max-width: 360px) {
+  .hero {
+    background-position: 70% center; /* Further adjustment for very small phones */
+  }
 }
 
 .hero::before {
