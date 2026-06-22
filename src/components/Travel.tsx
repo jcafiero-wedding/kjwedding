@@ -8,7 +8,6 @@ import {
   ListItem,
   ListItemText,
   Button,
-  Modal,
 } from "@mui/material";
 import {
   Hotel,
@@ -18,22 +17,13 @@ import {
   Phone,
 } from "@mui/icons-material";
 import { useState } from "react";
-
-const modalStyle = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: { xs: "90%", sm: 600 },
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: { xs: 2, sm: 4 },
-};
+import HotelBlockModal from "./HotelBlockModal";
 
 function Travel() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [hotelModalOpen, setHotelModalOpen] = useState(false);
+
   const handleModal = () => {
-    setIsOpen(!isOpen);
+    setHotelModalOpen(!hotelModalOpen);
   };
   return (
     <div className="page-content">
@@ -218,7 +208,7 @@ function Travel() {
               <ListItem>
                 <ListItemText
                   primary="The Chicken or the Egg"
-                  secondary="Famous chicken wing and breakfast spot"
+                  secondary="Locally famous chicken wing and breakfast spot"
                 />
                 {/* https://www.letschegg.com/ */}
               </ListItem>
@@ -238,10 +228,17 @@ function Travel() {
               </ListItem>
               <ListItem>
                 <ListItemText
-                  primary="Barry's Do Me A Flavor"
-                  secondary="Local ice cream shop"
+                  primary="The Show Place Ice Cream Parlour"
+                  secondary="Theatrically themed ice cream sundaes served with singing and dancing servers"
                 />
                 {/* https://barrysdomeaflavor.com/ */}
+              </ListItem>
+
+              <ListItem>
+                <ListItemText
+                  primary="Skipper Dipper"
+                  secondary="Our local favorite ice cream shop"
+                />
               </ListItem>
 
               <ListItem>
@@ -279,45 +276,59 @@ function Travel() {
                   </Link>
                 </Box>
               </ListItem>
-              <ListItem>
+              <ListItem
+                sx={{ flexDirection: "column", alignItems: "flex-start" }}
+              >
                 <ListItemText
                   primary="Bay Village/Schooners Wharf"
-                  secondary="Shopping plaza with a beautiful Christmas tree shop"
+                  secondary="Shopping plaza with a Christmas tree shop and many other shops"
                 />
+              </ListItem>
+              <ListItem
+                sx={{ flexDirection: "column", alignItems: "flex-start" }}
+              >
+                <ListItemText
+                  primary="NJ Maritime Museum"
+                  secondary="Nautical-themed museum packed with shipwreck finds, photos, navigation equipment & more."
+                />
+                <Box sx={{ display: "flex", gap: 2, mt: 1 }}>
+                  <Link
+                    href="https://njmaritimemuseum.org/"
+                    target="_blank"
+                    sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
+                  >
+                    <Language fontSize="small" />
+                    Website
+                  </Link>
+                </Box>
+              </ListItem>
+
+              <ListItem
+                sx={{ flexDirection: "column", alignItems: "flex-start" }}
+              >
+                <ListItemText
+                  primary="Long Beach Island Historical Museum"
+                  secondary="Explore & experience the history of Long Beach Island"
+                />
+                <Box sx={{ display: "flex", gap: 2, mt: 1 }}>
+                  <Link
+                    href="https://www.lbihistoricalmuseum.org/"
+                    target="_blank"
+                    sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
+                  >
+                    <Language fontSize="small" />
+                    Website
+                  </Link>
+                </Box>
               </ListItem>
             </List>
           </Paper>
         </Grid>
       </Grid>
-      <Modal open={isOpen} onClose={handleModal}>
-        <Box sx={modalStyle}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Important Information on How to Book a Reservation:
-          </Typography>
-          <ul>
-            <li>
-              The resort is closed until April, but they will be open starting
-              Monday, January 13th to accept reservations.
-            </li>
-            <li>
-              Guests can call the resort at 609-492-4611 ext 1 anytime Monday -
-              Saturday 12pm-5pm after January 13th.
-            </li>
-            <li>
-              Guests cannot use the online booking portal to secure a room
-              within your room block.
-            </li>
-            <li>
-              If guests call the resort and do not connect with a receptionist,
-              they should leave a voicemail for a call back.
-            </li>
-            <li>
-              Once the resort reopens at the end of April, the resort will
-              resume normal business hours.
-            </li>
-          </ul>
-        </Box>
-      </Modal>
+      <HotelBlockModal
+        open={hotelModalOpen}
+        onClose={() => setHotelModalOpen(false)}
+      />
     </div>
   );
 }

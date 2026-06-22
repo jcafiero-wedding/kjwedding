@@ -3,6 +3,7 @@
   padding: 0;
   width: 100%;
   text-align: center;
+  color-scheme: light dark;
 }
 
 .layout {
@@ -29,6 +30,9 @@
   display: flex;
   gap: 2rem;
   justify-content: center;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 @media (max-width: 900px) {
   .top-nav {
@@ -38,7 +42,23 @@
 
 .top-nav a {
   text-decoration: none;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+  color: #5a6b5d;
+  font-weight: 500;
+}
+
+/* Dark theme navigation links */
+@media (prefers-color-scheme: dark) {
+  .top-nav a {
+    color: #b8c5b8;
+  }
+}
+
+/* Dark theme navigation background */
+@media (prefers-color-scheme: dark) {
+  .top-nav {
+    background: rgba(0, 0, 0, 0.4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
 }
 
 .hero {
@@ -121,4 +141,9 @@
 .hero-content p {
   font-size: 1.5rem;
   margin: 0.5rem 0;
+}
+
+.page-content a {
+  font-weight: 500;
+  cursor: pointer;
 }

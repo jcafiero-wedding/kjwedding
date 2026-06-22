@@ -26,7 +26,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { useMemo, useState } from "react";
-import { Menu } from "@mui/icons-material";
+import { Launch, Menu } from "@mui/icons-material";
 
 const Layout = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -48,7 +48,7 @@ const Layout = () => {
       external: true,
       rel: "noopener noreferrer",
     },
-    // { text: "Q & A", path: "/qa" },
+    { text: "Q & A", path: "/qa" },
     // { text: "Gallery", path: "/gallery" },
   ];
   return (
@@ -74,6 +74,9 @@ const Layout = () => {
             <Button variant="text" component={Link} to="/travel">
               Travel
             </Button>
+            <Button variant="text" component={Link} to="/qa">
+              Q & A
+            </Button>
             <Button variant="text" component={Link} to="/rsvp">
               RSVP
             </Button>
@@ -83,12 +86,11 @@ const Layout = () => {
               href="https://registry.theknot.com/jennifer-cafiero-kyle-richers-september-2026-new-jersey/75296227"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Registry (opens in a new tab)"
             >
               Registry
             </Button>
-            {/* <Button variant="text" component={Link} to="/qa">
-              Q & A
-            </Button>
+            {/* 
             <Button variant="text" component={Link} to="/gallery">
               Gallery
             </Button> */}
@@ -118,6 +120,10 @@ const Layout = () => {
                 onClick={handleDrawerToggle}
               >
                 <ListItemText primary={item.text} />
+                <div style={{ visibility: "hidden" }}>
+                  Link opens in new tab
+                </div>
+                {item.external && <Launch fontSize="small" />}
               </ListItemButton>
             </ListItem>
           ))}
@@ -137,10 +143,10 @@ function App() {
         palette: {
           mode: prefersDarkMode ? "dark" : "light",
           primary: {
-            main: "#5A6C6D",
+            main: prefersDarkMode ? "#B8C6A7" : "#A3B18A", // Light peach for dark mode, deep brown for light mode
           },
           secondary: {
-            main: "#9A9892",
+            main: prefersDarkMode ? "#B5A28A" : "#6B5B73", // Adjust secondary for contrast too
           },
         },
         typography: {
