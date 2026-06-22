@@ -11,7 +11,7 @@ export const invitedGuests: GuestParty[] = [
   // Couple: { primaryName: "John Doe", guestNames: ["John Doe", "Jane Doe"], totalAllowed: 2 }
   // Family: { primaryName: "The Smith Family", guestNames: ["John Smith", "Jane Smith", "Little Smith"], totalAllowed: 3 }
   {
-    primaryName: "Anne Cafiero",
+    primaryName: "Anne & Steve Cafiero",
     guestNames: ["Anne Cafiero", "Steve Cafiero"],
     totalAllowed: 2,
   },
@@ -31,7 +31,7 @@ export const invitedGuests: GuestParty[] = [
     totalAllowed: 2,
   },
   {
-    primaryName: "John Cafiero",
+    primaryName: "Mr. and Mrs. John Cafiero",
     guestNames: ["John Cafiero", "Glady Cafiero"],
     totalAllowed: 2,
   },
@@ -57,11 +57,7 @@ export const invitedGuests: GuestParty[] = [
   },
   {
     primaryName: "The Sorrentino Family",
-    guestNames: [
-      "Michael Sorrentino",
-      "Jenni Sorrentino", // TODO Check?
-      "Josh Sorrentino",
-    ],
+    guestNames: ["Michael Sorrentino", "Jenny Sorrentino", "Josh Sorrentino"],
     totalAllowed: 3,
   },
   {
@@ -131,8 +127,8 @@ export const invitedGuests: GuestParty[] = [
   },
   {
     primaryName: "Frankie Scioscia",
-    guestNames: ["Frankie Scioscia"],
-    totalAllowed: 1,
+    guestNames: ["Frankie Scioscia", "Skylar Haas"],
+    totalAllowed: 2,
   },
   {
     primaryName: "Mandi Scioscia",
@@ -151,7 +147,7 @@ export const invitedGuests: GuestParty[] = [
   },
   {
     primaryName: "Julia Panko and Guest",
-    guestNames: ["Julia Panko", "Daniel"],
+    guestNames: ["Julia Panko", "Daniel Coates"],
     totalAllowed: 2,
   },
   {
