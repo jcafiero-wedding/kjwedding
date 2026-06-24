@@ -61,7 +61,7 @@ function QA() {
           margin: "0 auto",
           padding: 4,
           textAlign: "left",
-          background: "rgba(255, 255, 255, 0.9)",
+          // background: "rgba(255, 255, 255, 0.9)",
           borderRadius: 2,
           boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
           backdropFilter: "blur(10px)",
