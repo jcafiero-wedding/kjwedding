@@ -532,8 +532,8 @@ export const invitedGuests: GuestParty[] = [
   },
   {
     primaryName: "Ms. Sophia Pasierski",
-    guestNames: ["Sophia Pasierski"],
-    totalAllowed: 1,
+    guestNames: ["Sophia Pasierski", "Guest"],
+    totalAllowed: 2,
   },
   {
     primaryName: "Mr. & Mrs. Don Ferrer",
@@ -551,14 +551,14 @@ export const invitedGuests: GuestParty[] = [
     totalAllowed: 2,
   },
   {
-    primaryName: "Mr. Barry Johnson",
-    guestNames: ["Barry Johnson"],
-    totalAllowed: 1,
+    primaryName: "Mr. Barry Johnson & Guest",
+    guestNames: ["Barry Johnson", "Guest"],
+    totalAllowed: 2,
   },
   {
     primaryName: "Mr. Robert Marino",
-    guestNames: ["Robert Marino"],
-    totalAllowed: 1,
+    guestNames: ["Robert Marino", "Guest"],
+    totalAllowed: 2,
   },
   {
     primaryName: "Mr. and Mrs. Troy Walker",
