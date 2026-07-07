@@ -102,13 +102,13 @@ export const invitedGuests: GuestParty[] = [
   },
   {
     primaryName: "Andrew Cafiero",
-    guestNames: ["Andrew Cafiero"],
-    totalAllowed: 1,
+    guestNames: ["Andrew Cafiero", "Guest"],
+    totalAllowed: 2,
   },
   {
     primaryName: "Brandon Cafiero",
-    guestNames: ["Brandon Cafiero"],
-    totalAllowed: 1,
+    guestNames: ["Brandon Cafiero", "Guest"],
+    totalAllowed: 2,
   },
   {
     primaryName: "Gerald Sorrentino",
@@ -277,8 +277,8 @@ export const invitedGuests: GuestParty[] = [
   },
   {
     primaryName: "Robert Gutierrez",
-    guestNames: ["Robert Gutierrez"],
-    totalAllowed: 1,
+    guestNames: ["Robert Gutierrez", "Guest"],
+    totalAllowed: 2,
   },
   {
     primaryName: "Richard Gutierrez",
