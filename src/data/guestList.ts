@@ -541,6 +541,11 @@ export const invitedGuests: GuestParty[] = [
     totalAllowed: 2,
   },
   {
+    primaryName: "Mr. & Mrs. McQuade",
+    guestNames: ["Ed McQuade", "Cathy McQuade"],
+    totalAllowed: 2,
+  },
+  {
     primaryName: "Mr. & Mrs. Russell Calkin",
     guestNames: ["Russell Calkin", "Judy Calkin"],
     totalAllowed: 2,
