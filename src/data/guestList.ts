@@ -575,6 +575,11 @@ export const invitedGuests: GuestParty[] = [
     guestNames: ["Jacqueline Halldow", "Mark Aesch"],
     totalAllowed: 2,
   },
+  {
+    primaryName: "Valentin Cervellera",
+    guestNames: ["Valentin Cervellera"],
+    totalAllowed: 1,
+  },
 ];
 
 export const findGuestParty = (inputName: string): GuestParty | null => {
